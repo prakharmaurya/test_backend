@@ -19,7 +19,7 @@ const writeDBFile = (d) => {
       if (err) {
         resolve(err);
       } else {
-        resolve(d.users[d.users.length - 1]);
+        resolve(d);
       }
     });
   });
@@ -70,7 +70,7 @@ app.post("/profile", (req, res) => {
     });
 
     writeDBFile(d).then((dx) => {
-      res.status(201).send(dx);
+      res.status(201).send(dx.users[dx.users.length - 1]);
     });
   });
 });
