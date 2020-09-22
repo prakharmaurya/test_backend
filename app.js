@@ -41,6 +41,40 @@ const writeDBFile = (d) => {
 
 app.use(express.json());
 
+app.get("/post/:id", (req, res) => {
+  readDBFile.then((d) => {
+    d.posts.forEach((post) => {
+      if (post.id == req.params.id) {
+        res.send(post);
+      }
+    });
+    res.status(404).send("Not post found");
+  });
+});
+
+app.get("/profile/:id", (req, res) => {
+  readDBFile.then((d) => {
+    d.users.forEach((user) => {
+      if (user.id == req.params.id) {
+        res.send(user);
+      }
+    });
+    res.status(404).send("Not user found");
+  });
+});
+
+app.get("/comment/:id", (req, res) => {
+  readDBFile.then((d) => {
+    d.comments.forEach((comment) => {
+      if (comment.id == req.params.id) {
+        res.send(comment);
+      }
+    });
+    res.status(404).send("Not comment found");
+  });
+});
+
+// send large
 app.get("/posts", (req, res) => {
   readDBFile.then((d) => {
     res.send(d.posts);
@@ -60,7 +94,6 @@ app.get("/comments", (req, res) => {
 });
 
 app.post("/profile", (req, res) => {
-  console.log(req.body);
   readDBFile.then((d) => {
     // edit d
     d.users.push({
@@ -77,13 +110,32 @@ app.post("/profile", (req, res) => {
 
 app.post("/post", (req, res) => {
   readDBFile.then((d) => {
-    res.send(d.posts);
+    // edit d
+    d.posts.push({
+      id: d.posts[d.posts.length - 1].id + 1,
+      post: req.body.post,
+      userId: req.body.userId,
+    });
+
+    writeDBFile(d).then((dx) => {
+      res.status(201).send(dx.posts[dx.posts.length - 1]);
+    });
   });
 });
 
 app.post("/comment", (req, res) => {
   readDBFile.then((d) => {
-    res.send(d.comments);
+    // edit d
+    d.comments.push({
+      id: d.comments[d.comments.length - 1].id + 1,
+      postId: req.body.postId,
+      comment: req.body.comment,
+      userId: req.body.userId,
+    });
+
+    writeDBFile(d).then((dx) => {
+      res.status(201).send(dx.comments[dx.comments.length - 1]);
+    });
   });
 });
 

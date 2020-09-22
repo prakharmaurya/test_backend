@@ -2,8 +2,15 @@
   "users": [
     { "id": 1, "name": "apple", "age": 54 },
     { "id": 2, "name": "banaa", "age": 4 },
-    { "id": 3, "name": "kivi", "age": "30" }
+    { "id": 3, "name": "kivi", "age": "30" },
+    { "id": 4, "name": "kivi", "age": "30" }
   ],
-  "posts": [{ "id": 1, "post": "Hello", "userId": 1 }],
-  "comments": [{ "id": 1, "postId": 1, "comment": "good", "userId": 2 }]
+  "posts": [
+    { "id": 1, "post": "Hello", "userId": 1 },
+    { "id": 2, "post": "New Json post", "userId": "3" }
+  ],
+  "comments": [
+    { "id": 1, "postId": 1, "comment": "good", "userId": 2 },
+    { "id": 2, "postId": "2", "comment": "new Comment", "userId": "3" }
+  ]
 }
