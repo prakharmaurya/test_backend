@@ -39,6 +39,8 @@ const writeDBFile = (d) => {
 //   });
 // });
 
+app.use(express.static("public"));
+
 app.use(express.json());
 
 app.get("/post/:id", (req, res) => {
@@ -60,6 +62,20 @@ app.get("/profile/:id", (req, res) => {
       }
     });
     res.status(404).send("Not user found");
+  });
+});
+
+app.get("/profile", (req, res) => {
+  readDBFile.then((d) => {
+    d.users.forEach((user) => {
+      if (
+        user.email == req.query.email &&
+        user.password == req.query.password
+      ) {
+        res.send({ name: user.name, email: user.email });
+      }
+    });
+    res.status(404).send("No user found");
   });
 });
 
@@ -95,16 +111,28 @@ app.get("/comments", (req, res) => {
 
 app.post("/profile", (req, res) => {
   readDBFile.then((d) => {
-    // edit d
-    d.users.push({
-      id: d.users[d.users.length - 1].id + 1,
-      name: req.body.name,
-      age: req.body.age,
+    let isExists = false;
+
+    d.users.forEach((user) => {
+      if (user.email === req.body.email) {
+        isExists = true;
+      }
     });
 
-    writeDBFile(d).then((dx) => {
-      res.status(201).send(dx.users[dx.users.length - 1]);
-    });
+    if (isExists) {
+      res.send("Already registered!!!");
+    } else {
+      d.users.push({
+        id: d.users[d.users.length - 1].id + 1,
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+      });
+
+      writeDBFile(d).then((dx) => {
+        res.status(201).send(dx.users[dx.users.length - 1]);
+      });
+    }
   });
 });
 
@@ -140,7 +168,7 @@ app.post("/comment", (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  res.status(404).send("page not found");
+  res.status(404).send("ppassword not found");
 });
 
 app.listen(port, () => {

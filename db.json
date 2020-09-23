@@ -1,9 +1,8 @@
 {
   "users": [
-    { "id": 1, "name": "apple", "age": 54 },
-    { "id": 2, "name": "banaa", "age": 4 },
-    { "id": 3, "name": "kivi", "age": "30" },
-    { "id": 4, "name": "kivi", "age": "30" }
+    { "id": 1, "name": "apple", "email": "a@a.com", "password": "1234" },
+    { "id": 2, "name": "banana", "email": "banana@b.com", "password": "1234" },
+    { "id": 3, "name": "kivi", "email": "kivi@k.com", "password": "1234" }
   ],
   "posts": [
     { "id": 1, "post": "Hello", "userId": 1 },
