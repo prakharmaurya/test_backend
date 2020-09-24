@@ -21,8 +21,6 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
 
-// const User = mongoose.model("users", { name: String , email: String, dob: Date});
-
 // const apple = new User({ name: "Apple" , email: 'a@a.com'});
 // const banana = new User({ name: "Banana" , email: 'b@b.com'});
 // apple.save().then(() => console.log("new user created"));
