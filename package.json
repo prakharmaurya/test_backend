@@ -2,10 +2,10 @@
   "name": "http2-server",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "main.js",
   "scripts": {
-    "dev": "nodemon app.js",
-    "start": "node app.js"
+    "dev": "nodemon main.js",
+    "start": "node main.js"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "mongoose": "^5.10.6",
     "winston": "^3.3.3"
   }
 }
