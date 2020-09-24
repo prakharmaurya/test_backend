@@ -1,29 +1,7 @@
 const express = require("express");
-const fs = require("fs");
+const { readDBFile, writeDBFile } = require("./dbManager");
 const app = express();
 const port = 3000;
-
-const readDBFile = new Promise((resolve, reject) => {
-  fs.readFile("./db.json", (err, data) => {
-    if (err) {
-      resolve(err);
-    } else {
-      resolve(JSON.parse(data.toString()));
-    }
-  });
-});
-
-const writeDBFile = (d) => {
-  return new Promise((resolve, reject) => {
-    fs.writeFile("./db.json", JSON.stringify(d), (err) => {
-      if (err) {
-        resolve(err);
-      } else {
-        resolve(d);
-      }
-    });
-  });
-};
 
 // const cb = (err, data, resolve, reject) => {
 //   if (err) {
