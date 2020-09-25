@@ -23,12 +23,20 @@ const formSubmit = (event) => {
     .then((res) => {
       userEmailHTML.value = null;
       userPasswordHTML.value = null;
-      alert(
-        `Login Successful, Name: ${res.data.name}, Email: ${res.data.email}`
-      );
-      window.location.href = "/index.html";
+      console.log(res.data);
+      if (res.data.user) {
+        alert(
+          `Message : ${res.data.message},Name: ${res.data.user.name} Email: ${res.data.user.email} Role : ${res.data.user.role}`
+        );
+      } else {
+        alert(`Message : ${res.data.message}`);
+      }
+      if (res.data.statusCode === 200) {
+        window.location.href = "/index.html";
+      }
     })
     .catch((err) => {
+      console.log(err);
       alert(`Error : ${err}`);
     });
 };
